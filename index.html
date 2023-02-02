@@ -1,0 +1,43 @@
+<html>
+<body>
+  <center>
+    <h1>script.ai</h1>
+    <h2>Convert Story scenes into script format</h2> 
+    <h3>PS: after entering the scenes click submit with multiple times to get longer response</h3>
+    <form>
+    <label for="prompt">Prompt:</label>
+    <input type="text" id="prompt" style= "width :100%; height: 200" name="prompt" value="Convert this story into film script format :">
+    <button type="button" length="80" width="90" onclick="getResponse()">Submit</button>
+  </form>
+
+  <div id="response-container">
+    <div id="response"></div>
+  </div>
+
+   Please into give your valuable feedback at subijoyacharya@gmail.com
+  </center>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    function getResponse() {
+      const prompt = document.getElementById("prompt").value;
+      const apiKey = "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";
+    
+    
+    axios.post('https://api.openai.com/v1/completions', {
+    prompt: prompt,
+    model: "text-davinci-002",
+    max_tokens: 3500,
+    n: 1,
+    stop: ","
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    }
+  }).then(function(response) {
+    document.getElementById("response").innerHTML = response.data.choices[0].text;
+  });
+}
+  </script>
+</body>
+</html>
